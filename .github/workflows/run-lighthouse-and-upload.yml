@@ -3,8 +3,9 @@ name: run lighthouse and upload
 on: push
 
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -14,3 +15,11 @@ jobs:
         run: yarn install
       - name: run lh
         run: yarn run lh-parallel -c 3 -d desktop
+      - name: upload data
+        env:
+          PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
+          CREDENTIALS_DATA: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          DATASET_ID: ${{ secrets.GOOGLE_BIGQUERY_DATASET_ID }}
+        run: |
+          echo "$CREDENTIALS_DATA" | base64 --decode > /tmp/config.json
+          yarn run upload-bigquery -p "$PROJECT_ID" -k /tmp/config.json -i "$DATASET_ID" -f dist/lh-desktop.jsonl
