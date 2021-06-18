@@ -25,4 +25,4 @@ jobs:
           DATASET_ID: ${{ secrets.GOOGLE_BIGQUERY_DATASET_ID }}
         run: |
           echo "$CREDENTIALS_DATA" | base64 --decode > /tmp/config.json
-          yarn run upload-bigquery -p "$PROJECT_ID" -k /tmp/config.json -i "$DATASET_ID" -f dist/${{ matrix.device-type }}.jsonl
+          yarn run upload-bigquery -p "$PROJECT_ID" -k /tmp/config.json -i "$DATASET_ID" -f dist/lh-${{ matrix.device-type }}.jsonl
