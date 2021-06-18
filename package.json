@@ -1,0 +1,19 @@
+{
+  "name": "web-tools",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "lh-parallel": "node src/run-lh-parallel.js",
+    "lh": "node src/run-lh.js",
+    "upload-bigquery": "node src/run-upload-bigquery.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@google-cloud/bigquery": "^5.6.0",
+    "async": "^3.2.0",
+    "commander": "^7.2.0",
+    "cross-spawn": "^7.0.3",
+    "lighthouse": "^8.0.0"
+  }
+}
