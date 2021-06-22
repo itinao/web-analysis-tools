@@ -6,7 +6,7 @@ const parseBudgetsResult = (audits) => {
   return audits[budgetIndex].details.items.reduce(
     (obj, item) => {
       const sizeOverBudget = item.sizeOverBudget ? item.sizeOverBudget : 0;
-      return Object.assign({}, obj, {[`${budgetIndex}-${item.resourceType}`]: sizeOverBudget })
+      return Object.assign({}, obj, {[`${budgetIndex}-${item.resourceType}`]: transferSize})
     }, {}
   );
 };
