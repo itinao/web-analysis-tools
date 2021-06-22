@@ -2,7 +2,7 @@ name: run lighthouse and upload
 
 on:
   schedule:
-    - cron:  '*/5 * * * *'
+    - cron:  '*/30 * * * *'
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 15
       - name: install
-        run: node -v && yarn install
+        run: yarn install
       - name: run lh
         run: yarn run lh-parallel -c 3 -d ${{ matrix.device-type }}
       - name: upload data
