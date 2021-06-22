@@ -15,5 +15,9 @@
     "commander": "^7.2.0",
     "cross-spawn": "^7.0.3",
     "lighthouse": "^8.0.0"
+  },
+  "volta": {
+    "node": "15.14.0",
+    "yarn": "1.22.10"
   }
 }
