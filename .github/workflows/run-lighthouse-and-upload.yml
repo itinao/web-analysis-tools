@@ -2,14 +2,14 @@ name: run lighthouse and upload
 
 on:
   schedule:
-    - cron:  '10 * * * *'
+    - cron:  '*/30 * * * *'
 jobs:
   run:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         device-type: ['desktop', 'mobile']
-    timeout-minutes: 20
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -20,6 +20,7 @@ jobs:
       - name: run lh
         run: yarn run lh-parallel -c 3 -d ${{ matrix.device-type }}
       - name: upload data
+        if: always()
         env:
           PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
           CREDENTIALS_DATA: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
