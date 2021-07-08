@@ -46,7 +46,7 @@ class GoogleSearchConsole {
       },
     });
 
-    return this.parseResult(res.data);
+    return this.parseResult(startDate, endDate, res.data);
   }
 
   async getAll(siteUrl, startDate, endDate) {
@@ -70,13 +70,15 @@ class GoogleSearchConsole {
     return searchResults;
   }
 
-  parseResult(resultData) {
+  parseResult(startDate, endDate, resultData) {
     if (!resultData.rows) {
       return [];
     }
 
     return resultData.rows.map(row => {
       return {
+        start_date: startDate,
+        end_date: endDate,
         key: row.keys[0],
         clicks: row.clicks,
         impressions: row.impressions,

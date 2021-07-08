@@ -5,6 +5,7 @@
   "scripts": {
     "lh-parallel": "node src/run-lh-parallel.js",
     "lh": "node src/run-lh.js",
+    "gsc": "node src/run-gsc.js",
     "seo-score": "node src/run-seo-score-calculator.js",
     "upload-bigquery": "node src/run-upload-bigquery.js"
   },
