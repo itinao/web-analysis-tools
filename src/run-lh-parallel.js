@@ -11,22 +11,22 @@ const cliOptions = program.opts();
 
 const targetUrls = require('../target-urls');
 
-(async () => {
+async function main() {
   const run = (device, url, callback) => {
     const command = `yarn run lh -d ${device} -u ${url}`;
     const [c, ...args] = command.split(' ');
     const served = crossSpawn(c, args);
 
     served.stdout.on('data', (data) => {
-      console.log(`[pid: ${served.pid}] ${data}`.trim())
+      console.info(`[pid: ${served.pid}] ${data}`.trim())
     });
 
     served.stderr.on('data', (data) => {
-      console.log(`[pid: ${served.pid}] ${data}`.trim())
+      console.info(`[pid: ${served.pid}] ${data}`.trim())
     });
 
     served.on('close', (code) => {
-      console.log(`[pid: ${served.pid}] finished.`);
+      console.info(`[pid: ${served.pid}] finished.`);
       callback();
     });
   };
@@ -37,6 +37,11 @@ const targetUrls = require('../target-urls');
 
   q.push(targetUrls);
   q.drain(() => {
-    console.log('all items have been processed');
+    console.info('all items have been processed');
   });
-})();
+}
+
+main().catch(e => {
+  console.error(e);
+  throw e;
+});

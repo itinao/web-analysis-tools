@@ -18,7 +18,7 @@ jobs:
       - name: install
         run: yarn install
       - name: run lh
-        run: yarn run lh-parallel -c 3 -d ${{ matrix.device-type }}
+        run: yarn run lh-parallel --concurrency 3 --device-type ${{ matrix.device-type }}
       - name: upload data
         if: always()
         env:
@@ -26,5 +26,5 @@ jobs:
           CREDENTIALS_DATA: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           DATASET_ID: ${{ secrets.GOOGLE_BIGQUERY_DATASET_ID }}
         run: |
-          echo "$CREDENTIALS_DATA" | base64 --decode > /tmp/config.json
-          yarn run upload-bigquery -p "$PROJECT_ID" -k /tmp/config.json -i "$DATASET_ID" -f dist/lh-${{ matrix.device-type }}.jsonl
+          echo "$CREDENTIALS_DATA" | base64 --decode > ~/credentials.json
+          yarn run upload-bigquery --project-id "$PROJECT_ID" --dataset-id "$DATASET_ID" --filename dist/lh-${{ matrix.device-type }}.jsonl

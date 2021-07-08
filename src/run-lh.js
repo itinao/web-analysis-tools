@@ -14,17 +14,23 @@ const desktopConfig = require('lighthouse/lighthouse-core/config/desktop-config'
 const defaultConfig = { extends: 'lighthouse:default' };
 
 const budgets = require('./performance-budgets').budgets;
-const parseResult = require('./parser/parse-result');
-const writeFile = require('./utils/write-file');
+const LighthouseResultParser = require('./classes/LighthouseResultParser');
+const {appendFile} = require('./utils/write-file');
 
-(async () => {
+async function main() {
   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
   const options = {logLevel: 'info', output: 'json', port: chrome.port, budgets: budgets};
   const config = cliOptions.deviceType === 'desktop' ? desktopConfig : defaultConfig;
   const runnerResult = await lighthouse(cliOptions.url, options, config);
   await chrome.kill();
 
-  const results = parseResult(cliOptions.url, runnerResult.lhr);
+  const parser = new LighthouseResultParser(cliOptions.url, runnerResult);
+  const results = parser.parse();
 
-  writeFile(cliOptions.outputPath, `lh-${cliOptions.deviceType}.jsonl`, JSON.stringify(results))
-})();
+  appendFile(cliOptions.outputPath, `lh-${cliOptions.deviceType}.jsonl`, JSON.stringify(results))
+}
+
+main().catch(e => {
+  console.error(e);
+  throw e;
+});
