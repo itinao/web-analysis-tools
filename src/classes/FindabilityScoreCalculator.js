@@ -11,7 +11,8 @@ class FindabilityScoreCalculator extends BaseScoreCalculator {
 
   execute() {
     const totalScore = this.targetResults.reduce((currentScore, currentObj) => {
-      const score = this.MAX_SCORE + 1 - currentObj.position;
+      let score = this.MAX_SCORE + 1 - currentObj.position;
+      score = score < 0 ? 0 : score;
       return currentScore + score;
     }, 0);
 
