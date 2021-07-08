@@ -12,7 +12,7 @@ const program = require('commander')
 const cliOptions = program.opts();
 
 const GoogleSearchConsole = require('./classes/GoogleSearchConsole');
-const writeFile = require('./utils/write-file');
+const {writeFile} = require('./utils/write-file');
 
 async function main() {
   const gscBufferDay = 3;

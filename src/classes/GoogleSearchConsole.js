@@ -7,7 +7,7 @@ class GoogleSearchConsole {
   auth;
   CREDENTIALS_PATH = './credentials.json';
 
-  constructor(keyFilename) {
+  constructor() {
     this.auth = new google.auth.GoogleAuth({
       keyFile: this.CREDENTIALS_PATH,
       scopes: [

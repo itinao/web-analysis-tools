@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 
-const writeFile = (path, fileName, data) => {
+const appendFile = (path, fileName, data) => {
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path);
   }
@@ -12,7 +12,20 @@ const writeFile = (path, fileName, data) => {
       throw err;
     }
     console.log('finish!');
-  });  
+  });
 };
 
-module.exports = writeFile;
+const writeFile = (path, fileName, data) => {
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path);
+  }
+
+  fs.writeFileSync(`${path}/${fileName}`, `${data}\n`, (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log('finish!');
+  });
+};
+
+module.exports = {appendFile: appendFile, writeFile: writeFile};

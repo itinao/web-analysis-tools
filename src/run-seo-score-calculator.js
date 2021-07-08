@@ -11,8 +11,8 @@ const cliOptions = program.opts();
 const FindabilityScoreCalculator = require('./classes/FindabilityScoreCalculator');
 const VisibilityScoreCalculator = require('./classes/VisibilityScoreCalculator');
 const GoogleSearchConsole = require('./classes/GoogleSearchConsole');
-const writeFile = require('./utils/write-file');
-const readCSV = require('./utils/read-csv');
+const {writeFile} = require('./utils/write-file');
+const {readCSV} = require('./utils/file-reader');
 
 async function main() {
   const targetPeriod = 30;
@@ -29,11 +29,11 @@ async function main() {
   const fsCalculator = new FindabilityScoreCalculator(searchResults, searchKeywords);
   const vsCalculator = new VisibilityScoreCalculator(searchResults, searchKeywords);
 
-  const seoScores = {
+  const seoScores = [{
     target_date: endDate,
     findability_score: fsCalculator.execute(),
     visibility_score: vsCalculator.execute()
-  };
+  }];
 
   writeFile(cliOptions.outputPath, 'seo_scores.json', JSON.stringify(seoScores));
   console.info('finished!');
