@@ -5,6 +5,7 @@
   "scripts": {
     "lh-parallel": "node src/run-lh-parallel.js",
     "lh": "node src/run-lh.js",
+    "seo-score": "node src/run-seo-score-calculator.js",
     "upload-bigquery": "node src/run-upload-bigquery.js"
   },
   "author": "",
@@ -14,7 +15,10 @@
     "async": "^3.2.0",
     "commander": "^7.2.0",
     "cross-spawn": "^7.0.3",
-    "lighthouse": "^8.0.0"
+    "csv-parse": "^4.16.0",
+    "googleapis": "^78.0.0",
+    "lighthouse": "^8.0.0",
+    "moment": "^2.29.1"
   },
   "volta": {
     "node": "15.14.0",
