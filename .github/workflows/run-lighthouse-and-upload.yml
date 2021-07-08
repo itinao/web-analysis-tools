@@ -15,16 +15,18 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 15
-      - name: install
-        run: yarn install
-      - name: run lh
-        run: yarn run lh-parallel --concurrency 3 --device-type ${{ matrix.device-type }}
-      - name: upload data
-        if: always()
-        env:
-          PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-          CREDENTIALS_DATA: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          DATASET_ID: ${{ secrets.GOOGLE_BIGQUERY_DATASET_ID }}
-        run: |
-          echo "$CREDENTIALS_DATA" | base64 --decode > ~/credentials.json
-          yarn run upload-bigquery --project-id "$PROJECT_ID" --dataset-id "$DATASET_ID" --filename dist/lh-${{ matrix.device-type }}.jsonl
+      - name: pwd
+        run: pwd
+#      - name: install
+#        run: yarn install
+#      - name: run lh
+#        run: yarn run lh-parallel --concurrency 3 --device-type ${{ matrix.device-type }}
+#      - name: upload data
+#        if: always()
+#        env:
+#          PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
+#          CREDENTIALS_DATA: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+#          DATASET_ID: ${{ secrets.GOOGLE_BIGQUERY_DATASET_ID }}
+#        run: |
+#          echo "$CREDENTIALS_DATA" | base64 --decode > ~/credentials.json
+#          yarn run upload-bigquery --project-id "$PROJECT_ID" --dataset-id "$DATASET_ID" --filename dist/lh-${{ matrix.device-type }}.jsonl
