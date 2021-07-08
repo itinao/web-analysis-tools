@@ -30,7 +30,7 @@ async function main() {
   const vsCalculator = new VisibilityScoreCalculator(searchResults, searchKeywords);
 
   const seoScores = {
-    target_date: cliOptions.endDate,
+    target_date: endDate,
     findability_score: fsCalculator.execute(),
     visibility_score: vsCalculator.execute()
   };
