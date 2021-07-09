@@ -4,6 +4,8 @@ const moment = require('moment');
 const program = require('commander')
   .version('0.0.1')
   .option('-u, --site-url [siteUrl]', 'siteUrl')
+  .option('-s, --start-date [startDate]', 'startDate')
+  .option('-s, --end-date [endDate]', 'endDate')
   .option('-o, --output-path [path]', 'output path', './dist')
   .parse(process.argv);
 const cliOptions = program.opts();
@@ -16,9 +18,9 @@ const {readCSV} = require('./utils/file-reader');
 
 async function main() {
   const targetPeriod = 30;
-  const gscBufferDay = 3; // 3日前のデータなら取得できる
-  const startDate = moment().add(-(gscBufferDay) + -(targetPeriod), 'days').format("YYYY-MM-DD");
-  const endDate = moment().add(-(gscBufferDay), 'days').format("YYYY-MM-DD");
+  const gscBufferDay = 4; // 4日前のデータなら取得できる
+  const startDate = cliOptions.startDate ? cliOptions.startDate : moment().add(-(gscBufferDay) + -(targetPeriod), 'days').format("YYYY-MM-DD");
+  const endDate = cliOptions.endDate ? cliOptions.endDate : moment().add(-(gscBufferDay), 'days').format("YYYY-MM-DD");
 
   console.info('start Google Search Console API');
   const gsc = new GoogleSearchConsole();

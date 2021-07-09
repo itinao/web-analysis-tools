@@ -67,6 +67,8 @@ class GoogleSearchConsole {
       }
     }
 
+    console.info(`found ${searchResults.length} rows.`);
+
     return searchResults;
   }
 
