@@ -86,16 +86,18 @@ Options:
 ```shell
 % yarn run seo-score --site-url {サイトURL}
 
-% yarn run seo-score --help
+% yarn run seo-score --help                                                  
 yarn run v1.22.10
 $ node src/run-seo-score-calculator.js --help
 Usage: run-seo-score-calculator [options]
 
 Options:
-  -V, --version             output the version number
-  -u, --site-url [siteUrl]  siteUrl
-  -o, --output-path [path]  output path (default: "./dist")
-  -h, --help                display help for command
+  -V, --version                 output the version number
+  -u, --site-url [siteUrl]      siteUrl
+  -s, --start-date [startDate]  startDate
+  -s, --end-date [endDate]      endDate
+  -o, --output-path [path]      output path (default: "./dist")
+  -h, --help                    display help for command
 
 # 結果
 % more dist/seo_scores.json 
