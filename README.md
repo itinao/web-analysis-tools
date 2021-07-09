@@ -81,6 +81,7 @@ Options:
 ターゲットのキーワードは[こちら](https://github.com/itinao/web-tools/blob/main/search_keywords.csv)
 
 ### ファインダビリティスコア・ビジビリティスコア
+過去30日の検索順位・クリック率を用い、算出する
 
 ```shell
 % yarn run seo-score --site-url {サイトURL}
