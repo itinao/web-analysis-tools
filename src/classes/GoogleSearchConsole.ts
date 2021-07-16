@@ -1,10 +1,7 @@
-'use strict';
+import { google } from 'googleapis';
 
-const {google} = require('googleapis');
-const webmasters = google.webmasters('v3');
-
-class GoogleSearchConsole {
-  auth;
+export default class GoogleSearchConsole {
+  private auth;
   CREDENTIALS_PATH = './credentials.json';
 
   constructor() {
@@ -16,46 +13,38 @@ class GoogleSearchConsole {
     });
   }
 
-  async query(siteUrl, startDate, endDate, startRow, rowLimit) {
+  async query(
+    siteUrl: string, startDate: string, endDate: string, startRow: number, rowLimit: number) {
     const authClient = await this.auth.getClient();
-    google.options({auth: authClient});
+    google.options({ auth: authClient });
 
-    const res = await webmasters.searchanalytics.query({
-      siteUrl: siteUrl,
+    const webmasters = google.webmasters('v3');
+    const query = {
+      siteUrl,
       requestBody: {
-        startDate: startDate,
-        endDate: endDate,
+        startDate,
+        endDate,
         searchType: 'web',
         dimensions: 'query',
-        startRow: startRow,
-        rowLimit: rowLimit,
+        startRow,
+        rowLimit,
         aggregationType: 'byProperty',
-        dimensionFilterGroups: [
-          /* sample
-          {
-            "filters": [
-              {
-                "dimension": "query",
-                "operator": "contains", // contains equals notContains notEquals
-                "expression": "ラクマ",
-              },
-            ]
-          },
-          */
-        ],
       },
-    });
+    };
+
+    // @ts-ignore
+    const res = await webmasters.searchanalytics.query(query);
 
     return this.parseResult(startDate, endDate, res.data);
   }
 
-  async getAll(siteUrl, startDate, endDate) {
+  async getAll(siteUrl: string, startDate: string, endDate: string) {
     const maxRepeatCount = 5;
     const startRow = 0;
     const rowLimit = 25000;
 
-    let searchResults = [];
-    for (let i in [...Array(maxRepeatCount).keys()]) {
+    let searchResults: {}[] = [];
+    for (const i of [...Array(maxRepeatCount).keys()]) {
       const currentStartRow = startRow + (rowLimit * i);
 
       console.info(`[${startDate}] - [${endDate}] ${currentStartRow} ~ ...`);
@@ -72,12 +61,12 @@ class GoogleSearchConsole {
     return searchResults;
   }
 
-  parseResult(startDate, endDate, resultData) {
+  parseResult(startDate: string, endDate: string, resultData: any) {
     if (!resultData.rows) {
       return [];
     }
 
-    return resultData.rows.map(row => {
+    return resultData.rows.map((row: any) => {
       return {
         start_date: startDate,
         end_date: endDate,
@@ -86,9 +75,7 @@ class GoogleSearchConsole {
         impressions: row.impressions,
         ctr: row.ctr,
         position: row.position,
-      }
+      };
     });
   }
 }
-
-module.exports = GoogleSearchConsole;

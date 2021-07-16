@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "lh-parallel": "node src/run-lh-parallel.js",
-    "lh": "node src/run-lh.js",
-    "gsc": "node src/run-gsc.js",
-    "seo-score": "node src/run-seo-score-calculator.js",
-    "upload-bigquery": "node src/run-upload-bigquery.js"
+    "lh-parallel": "ts-node src/run-lh-parallel.ts",
+    "lh": "ts-node src/run-lh.ts",
+    "gsc": "ts-node src/run-gsc.ts",
+    "seo-score": "ts-node src/run-seo-score-calculator.ts",
+    "upload-bigquery": "ts-node src/run-upload-bigquery.ts",
+    "lint": "tslint src/**/*.ts"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@google-cloud/bigquery": "^5.6.0",
     "async": "^3.2.0",
     "commander": "^7.2.0",
@@ -24,5 +25,13 @@
   "volta": {
     "node": "15.14.0",
     "yarn": "1.22.10"
+  },
+  "devDependencies": {
+    "@types/async": "^3.2.7",
+    "@types/cross-spawn": "^6.0.2",
+    "ts-node": "^10.1.0",
+    "tslint": "^6.1.3",
+    "tslint-config-airbnb-base": "^0.3.0",
+    "typescript": "^4.3.5"
   }
 }

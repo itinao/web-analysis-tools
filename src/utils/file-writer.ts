@@ -1,12 +1,11 @@
-'use strict';
+import fs from 'fs';
 
-const fs = require('fs');
-
-const appendFile = (path, fileName, data) => {
+const appendFile = (path: string, fileName: string, data: string) => {
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path);
   }
 
+  // @ts-ignore
   fs.appendFileSync(`${path}/${fileName}`, `${data}\n`, (err) => {
     if (err) {
       throw err;
@@ -15,11 +14,12 @@ const appendFile = (path, fileName, data) => {
   });
 };
 
-const writeFile = (path, fileName, data) => {
+const writeFile = (path: string, fileName: string, data: string) => {
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path);
   }
 
+  // @ts-ignore
   fs.writeFileSync(`${path}/${fileName}`, `${data}\n`, (err) => {
     if (err) {
       throw err;
@@ -28,4 +28,4 @@ const writeFile = (path, fileName, data) => {
   });
 };
 
-module.exports = {appendFile: appendFile, writeFile: writeFile};
+export { appendFile, writeFile };
