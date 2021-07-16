@@ -1,16 +1,14 @@
-'use strict';
+export default class BaseScoreCalculator {
+  protected targetResults;
+  protected searchKeywords;
 
-class BaseScoreCalculator {
-  targetResults;
-  searchKeywords;
-
-  constructor(searchResults, searchKeywords) {
-    const searchResultMap = searchResults.reduce((obj, currentObj) => {
+  constructor(searchResults: {[key: string]: number}[], searchKeywords: []) {
+    const searchResultMap = searchResults.reduce((obj: {[key: string]: {}}, currentObj: {[key: string]: number}) => {
       obj[currentObj.key] = currentObj;
       return obj;
     }, {});
 
-    const targetResults = searchKeywords.reduce((arr, currentObj) => {
+    const targetResults = searchKeywords.reduce((arr: {}[], currentObj: {[key: string]: string}) => {
       if (searchResultMap[currentObj.keyword]) {
         arr.push(Object.assign(
           searchResultMap[currentObj.keyword],
@@ -24,5 +22,3 @@ class BaseScoreCalculator {
     this.searchKeywords = searchKeywords;
   }
 }
-
-module.exports = BaseScoreCalculator;

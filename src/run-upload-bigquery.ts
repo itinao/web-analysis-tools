@@ -1,16 +1,14 @@
-'use strict';
+import path from 'path'
+import program from 'commander'
+import {GoogleBigQuery} from './classes/GoogleBigQuery'
+import {readJSON, readJSONL} from './utils/file-reader'
 
-const path = require('path')
-const program = require('commander')
-  .version('0.0.1')
+const cliOptions = program.version('0.0.1')
   .option('-p, --project-id [id]', 'project id')
   .option('-i, --dataset-id [id]', 'dataset id')
   .option('-f, --filename [filename]', 'import filename')
-  .parse(process.argv);
-const cliOptions = program.opts();
-
-const GoogleBigQuery = require('./classes/GoogleBigQuery');
-const {readJSON, readJSONL} = require('./utils/file-reader');
+  .parse(process.argv)
+  .opts();
 
 async function main() {
   const bq = new GoogleBigQuery(cliOptions.projectId);

@@ -1,6 +1,4 @@
-'use strict';
-
-const replaceHyphen = (baseObj) => {
+const replaceHyphen = (baseObj: {}) => {
   return Object.entries(baseObj).reduce(
     (obj, [key, value]) => {
       key = key.replace(/\-/g, '_');
@@ -9,4 +7,4 @@ const replaceHyphen = (baseObj) => {
   );
 };
 
-module.exports = replaceHyphen;
+export {replaceHyphen};

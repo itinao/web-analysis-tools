@@ -1,16 +1,14 @@
-'use strict';
+import BaseScoreCalculator from './BaseScoreCalculator'
 
-const BaseScoreCalculator = require('./BaseScoreCalculator');
-
-class FindabilityScoreCalculator extends BaseScoreCalculator {
+export default class FindabilityScoreCalculator extends BaseScoreCalculator {
   MAX_SCORE = 30;
 
-  constructor(searchResults, searchKeywords) {
+  constructor(searchResults: {}[], searchKeywords: []) {
     super(searchResults, searchKeywords);
   }
 
   execute() {
-    const totalScore = this.targetResults.reduce((currentScore, currentObj) => {
+    const totalScore = this.targetResults.reduce((currentScore: number, currentObj: {[key: string]: number}) => {
       let score = this.MAX_SCORE + 1 - currentObj.position;
       score = score < 0 ? 0 : score;
       return currentScore + score;
@@ -22,5 +20,3 @@ class FindabilityScoreCalculator extends BaseScoreCalculator {
     return totalScore / maxScore;
   }
 }
-
-module.exports = FindabilityScoreCalculator;

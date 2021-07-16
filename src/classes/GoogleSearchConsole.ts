@@ -1,9 +1,6 @@
-'use strict';
+import {google} from 'googleapis'
 
-const {google} = require('googleapis');
-const webmasters = google.webmasters('v3');
-
-class GoogleSearchConsole {
+export default class GoogleSearchConsole {
   auth;
   CREDENTIALS_PATH = './credentials.json';
 
@@ -16,11 +13,12 @@ class GoogleSearchConsole {
     });
   }
 
-  async query(siteUrl, startDate, endDate, startRow, rowLimit) {
+  async query(siteUrl: string, startDate: string, endDate: string, startRow: number, rowLimit: number) {
     const authClient = await this.auth.getClient();
     google.options({auth: authClient});
 
-    const res = await webmasters.searchanalytics.query({
+    const webmasters = google.webmasters('v3');
+    const query = {
       siteUrl: siteUrl,
       requestBody: {
         startDate: startDate,
@@ -29,34 +27,24 @@ class GoogleSearchConsole {
         dimensions: 'query',
         startRow: startRow,
         rowLimit: rowLimit,
-        aggregationType: 'byProperty',
-        dimensionFilterGroups: [
-          /* sample
-          {
-            "filters": [
-              {
-                "dimension": "query",
-                "operator": "contains", // contains equals notContains notEquals
-                "expression": "ラクマ",
-              },
-            ]
-          },
-          */
-        ],
-      },
-    });
+        aggregationType: 'byProperty'
+      }
+    };
+
+    // @ts-ignore
+    const res = await webmasters.searchanalytics.query(query);
 
     return this.parseResult(startDate, endDate, res.data);
   }
 
-  async getAll(siteUrl, startDate, endDate) {
+  async getAll(siteUrl: string, startDate: string, endDate: string) {
     const maxRepeatCount = 5;
     const startRow = 0;
     const rowLimit = 25000;
 
-    let searchResults = [];
+    let searchResults: {}[] = [];
     for (let i in [...Array(maxRepeatCount).keys()]) {
-      const currentStartRow = startRow + (rowLimit * i);
+      const currentStartRow = startRow + (rowLimit * Number(i));
 
       console.info(`[${startDate}] - [${endDate}] ${currentStartRow} ~ ...`);
       const results = await this.query(siteUrl, startDate, endDate, currentStartRow, rowLimit);
@@ -72,12 +60,12 @@ class GoogleSearchConsole {
     return searchResults;
   }
 
-  parseResult(startDate, endDate, resultData) {
+  parseResult(startDate: string, endDate: string, resultData: any) {
     if (!resultData.rows) {
       return [];
     }
 
-    return resultData.rows.map(row => {
+    return resultData.rows.map((row: any) => {
       return {
         start_date: startDate,
         end_date: endDate,
@@ -90,5 +78,3 @@ class GoogleSearchConsole {
     });
   }
 }
-
-module.exports = GoogleSearchConsole;

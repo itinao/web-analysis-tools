@@ -1,21 +1,19 @@
-'use strict';
+import * as chromeLauncher from 'chrome-launcher'
+import program from 'commander'
+import budgets from './performance-budgets.json'
+import {LighthouseResultParser} from './classes/LighthouseResultParser'
+import {appendFile} from './utils/write-file'
 
 const lighthouse = require('lighthouse');
-const chromeLauncher = require('chrome-launcher');
-const program = require('commander')
-  .version('0.0.1')
-  .option('-d, --device-type [type]', 'device type (desktop|mobile)', 'mobile')
-  .option('-u, --url [url]', 'execute url')
-  .option('-o, --output-path [path]', 'output path', './dist')
-  .parse(process.argv);
-const cliOptions = program.opts();
-
 const desktopConfig = require('lighthouse/lighthouse-core/config/desktop-config');
 const defaultConfig = { extends: 'lighthouse:default' };
 
-const budgets = require('./performance-budgets').budgets;
-const LighthouseResultParser = require('./classes/LighthouseResultParser');
-const {appendFile} = require('./utils/write-file');
+const cliOptions = program.version('0.0.1')
+  .option('-d, --device-type [type]', 'device type (desktop|mobile)', 'mobile')
+  .option('-u, --url [url]', 'execute url')
+  .option('-o, --output-path [path]', 'output path', './dist')
+  .parse(process.argv)
+  .opts();
 
 async function main() {
   const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});

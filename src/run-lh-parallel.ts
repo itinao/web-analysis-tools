@@ -1,18 +1,16 @@
-'use strict';
+import crossSpawn from 'cross-spawn'
+import async from 'async'
+import program from 'commander'
+import targetUrls from '../target-urls.json'
 
-const crossSpawn = require('cross-spawn');
-const async = require('async');
-const program = require('commander')
-  .version('0.0.1')
-  .option('-c, --concurrency [number]', 'concurrency', 1)
+const cliOptions = program.version('0.0.1')
+  .option('-c, --concurrency [number]', 'concurrency', '1')
   .option('-d, --device-type [type]', 'device type (desktop|mobile)', 'mobile')
-  .parse(process.argv);
-const cliOptions = program.opts();
-
-const targetUrls = require('../target-urls');
+  .parse(process.argv)
+  .opts();
 
 async function main() {
-  const run = (device, url, callback) => {
+  const run = (device: string, url: string, callback: Function) => {
     const command = `yarn run lh -d ${device} -u ${url}`;
     const [c, ...args] = command.split(' ');
     const served = crossSpawn(c, args);
@@ -31,7 +29,7 @@ async function main() {
     });
   };
 
-  var q = async.queue((url, callback) => {
+  var q = async.queue((url: string, callback: Function) => {
     run(cliOptions.deviceType, url, callback);
   }, cliOptions.concurrency);
 

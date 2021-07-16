@@ -1,20 +1,18 @@
-'use strict';
+import moment from 'moment'
+import program from 'commander'
+import FindabilityScoreCalculator from './classes/FindabilityScoreCalculator'
+import VisibilityScoreCalculator from './classes/VisibilityScoreCalculator'
+import GoogleSearchConsole from './classes/GoogleSearchConsole'
+import {writeFile} from './utils/write-file'
+import {readCSV} from './utils/file-reader'
 
-const moment = require('moment');
-const program = require('commander')
-  .version('0.0.1')
+const cliOptions = program.version('0.0.1')
   .option('-u, --site-url [siteUrl]', 'siteUrl')
   .option('-s, --start-date [startDate]', 'startDate')
   .option('-s, --end-date [endDate]', 'endDate')
   .option('-o, --output-path [path]', 'output path', './dist')
-  .parse(process.argv);
-const cliOptions = program.opts();
-
-const FindabilityScoreCalculator = require('./classes/FindabilityScoreCalculator');
-const VisibilityScoreCalculator = require('./classes/VisibilityScoreCalculator');
-const GoogleSearchConsole = require('./classes/GoogleSearchConsole');
-const {writeFile} = require('./utils/write-file');
-const {readCSV} = require('./utils/file-reader');
+  .parse(process.argv)
+  .opts();
 
 async function main() {
   const targetPeriod = 30;
