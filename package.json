@@ -8,7 +8,7 @@
     "gsc": "ts-node src/run-gsc.ts",
     "seo-score": "ts-node src/run-seo-score-calculator.ts",
     "upload-bigquery": "ts-node src/run-upload-bigquery.ts",
-    "lint": "yarn run tslint src/**/*.ts"
+    "lint": "tslint src/**/*.ts"
   },
   "author": "",
   "license": "ISC",

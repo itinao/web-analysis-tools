@@ -22,25 +22,25 @@ export class LighthouseResultParser {
 
   parseAudits(audits: any) {
     const requiredAuditResult: {[key:string]: Function} = {
-      'first-contentful-paint'    : (result: any) => { return Math.round(result.score * this.RATE); },
-      'largest-contentful-paint'  : (result: any) => { return Math.round(result.score * this.RATE); },
-      'first-meaningful-paint'    : (result: any) => { return Math.round(result.score * this.RATE); },
-      'speed-index'               : (result: any) => { return Math.round(result.score * this.RATE); },
-      'total-blocking-time'       : (result: any) => { return Math.round(result.score * this.RATE); },
-      'max-potential-fid'         : (result: any) => { return Math.round(result.score * this.RATE); },
-      'cumulative-layout-shift'   : (result: any) => { return Math.round(result.score * this.RATE); },
-      'server-response-time'      : (result: any) => { return Math.round(result.score * this.RATE); },
-      'first-cpu-idle'            : (result: any) => { return Math.round(result.score * this.RATE); },
-      interactive                 : (result: any) => { return Math.round(result.numericValue); },
-      'mainthread-work-breakdown' : (result: any) => { return Math.round(result.score * this.RATE); },
-      'network-rtt'               : (result: any) => { return Math.round(result.numericValue); },
-      'layout-shift-elements'     : (result: any) => { return result.details.items.length; },
-      'long-tasks'                : (result: any) => { return result.details.items.length; },
-      'unsized-images'            : (result: any) => { return result.details.items.length; },
-      'render-blocking-resources' : (result: any) => { return result.details.items.length; },
-      'unused-css-rules'          : (result: any) => { return Math.round(result.score * this.RATE); },
-      'unused-javascript'         : (result: any) => { return Math.round(result.score * this.RATE); },
-      'uses-responsive-images'    : (result: any) => { return Math.round(result.score * this.RATE); },
+      'first-contentful-paint'    : (result: any) => Math.round(result.score * this.RATE),
+      'largest-contentful-paint'  : (result: any) => Math.round(result.score * this.RATE),
+      'first-meaningful-paint'    : (result: any) => Math.round(result.score * this.RATE),
+      'speed-index'               : (result: any) => Math.round(result.score * this.RATE),
+      'total-blocking-time'       : (result: any) => Math.round(result.score * this.RATE),
+      'max-potential-fid'         : (result: any) => Math.round(result.score * this.RATE),
+      'cumulative-layout-shift'   : (result: any) => Math.round(result.score * this.RATE),
+      'server-response-time'      : (result: any) => Math.round(result.score * this.RATE),
+      'first-cpu-idle'            : (result: any) => Math.round(result.score * this.RATE),
+      interactive                 : (result: any) => Math.round(result.numericValue),
+      'mainthread-work-breakdown' : (result: any) => Math.round(result.score * this.RATE),
+      'network-rtt'               : (result: any) => Math.round(result.numericValue),
+      'layout-shift-elements'     : (result: any) => result.details.items.length,
+      'long-tasks'                : (result: any) => result.details.items.length,
+      'unsized-images'            : (result: any) => result.details.items.length,
+      'render-blocking-resources' : (result: any) => result.details.items.length,
+      'unused-css-rules'          : (result: any) => Math.round(result.score * this.RATE),
+      'unused-javascript'         : (result: any) => Math.round(result.score * this.RATE),
+      'uses-responsive-images'    : (result: any) => Math.round(result.score * this.RATE),
     };
 
     return Object.entries(audits).reduce(
@@ -66,11 +66,11 @@ export class LighthouseResultParser {
 
   parseCategories(categories: any) {
     const requiredCategoriesResult: {[key:string]: Function} = {
-      performance      : (result: any) => { return Math.round(result.score * this.RATE); },
-      accessibility    : (result: any) => { return Math.round(result.score * this.RATE); },
-      'best-practices' : (result: any) => { return Math.round(result.score * this.RATE); },
-      seo              : (result: any) => { return Math.round(result.score * this.RATE); },
-      pwa              : (result: any) => { return Math.round(result.score * this.RATE); },
+      performance      : (result: any) => Math.round(result.score * this.RATE),
+      accessibility    : (result: any) => Math.round(result.score * this.RATE),
+      'best-practices' : (result: any) => Math.round(result.score * this.RATE),
+      seo              : (result: any) => Math.round(result.score * this.RATE),
+      pwa              : (result: any) => Math.round(result.score * this.RATE),
     };
 
     return Object.entries(categories).reduce(
