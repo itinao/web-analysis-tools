@@ -26,5 +26,5 @@ jobs:
           CREDENTIALS_DATA: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           DATASET_ID: ${{ secrets.GOOGLE_BIGQUERY_DATASET_ID }}
         run: |
-          echo "$CREDENTIALS_DATA" | base64 --decode > /home/runner/work/web-tools/web-tools/credentials.json
+          echo "$CREDENTIALS_DATA" | base64 --decode > /home/runner/work/web-analysis-tools/web-analysis-tools/credentials.json
           yarn run upload-bigquery --project-id "$PROJECT_ID" --dataset-id "$DATASET_ID" --filename dist/lh_${{ matrix.device-type }}.jsonl
