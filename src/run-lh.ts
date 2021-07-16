@@ -1,8 +1,8 @@
-import * as chromeLauncher from 'chrome-launcher'
-import program from 'commander'
-import budgets from './performance-budgets.json'
-import {LighthouseResultParser} from './classes/LighthouseResultParser'
-import {appendFile} from './utils/write-file'
+import * as chromeLauncher from 'chrome-launcher';
+import program from 'commander';
+import budgets from './performance-budgets.json';
+import { LighthouseResultParser } from './classes/LighthouseResultParser';
+import { appendFile } from './utils/file-writer';
 
 const lighthouse = require('lighthouse');
 const desktopConfig = require('lighthouse/lighthouse-core/config/desktop-config');
@@ -16,8 +16,8 @@ const cliOptions = program.version('0.0.1')
   .opts();
 
 async function main() {
-  const chrome = await chromeLauncher.launch({chromeFlags: ['--headless']});
-  const options = {logLevel: 'info', output: 'json', port: chrome.port, budgets: budgets};
+  const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+  const options = { logLevel: 'info', output: 'json', port: chrome.port, budgets };
   const config = cliOptions.deviceType === 'desktop' ? desktopConfig : defaultConfig;
   const runnerResult = await lighthouse(cliOptions.url, options, config);
   await chrome.kill();
@@ -25,10 +25,10 @@ async function main() {
   const parser = new LighthouseResultParser(cliOptions.url, runnerResult);
   const results = parser.parse();
 
-  appendFile(cliOptions.outputPath, `lh-${cliOptions.deviceType}.jsonl`, JSON.stringify(results))
+  appendFile(cliOptions.outputPath, `lh-${cliOptions.deviceType}.jsonl`, JSON.stringify(results));
 }
 
-main().catch(e => {
+main().catch((e) => {
   console.error(e);
   throw e;
 });

@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs';
 
 const appendFile = (path: string, fileName: string, data: string) => {
   if (!fs.existsSync(path)) {
@@ -28,4 +28,4 @@ const writeFile = (path: string, fileName: string, data: string) => {
   });
 };
 
-export {appendFile, writeFile};
+export { appendFile, writeFile };

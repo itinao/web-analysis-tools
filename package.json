@@ -7,7 +7,8 @@
     "lh": "ts-node src/run-lh.ts",
     "gsc": "ts-node src/run-gsc.ts",
     "seo-score": "ts-node src/run-seo-score-calculator.ts",
-    "upload-bigquery": "ts-node src/run-upload-bigquery.ts"
+    "upload-bigquery": "ts-node src/run-upload-bigquery.ts",
+    "lint": "yarn run tslint src/**/*.ts"
   },
   "author": "",
   "license": "ISC",
@@ -29,6 +30,8 @@
     "@types/async": "^3.2.7",
     "@types/cross-spawn": "^6.0.2",
     "ts-node": "^10.1.0",
+    "tslint": "^6.1.3",
+    "tslint-config-airbnb-base": "^0.3.0",
     "typescript": "^4.3.5"
   }
 }

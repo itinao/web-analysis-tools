@@ -1,7 +1,7 @@
-import {google} from 'googleapis'
+import { google } from 'googleapis';
 
 export default class GoogleSearchConsole {
-  auth;
+  private auth;
   CREDENTIALS_PATH = './credentials.json';
 
   constructor() {
@@ -13,22 +13,23 @@ export default class GoogleSearchConsole {
     });
   }
 
-  async query(siteUrl: string, startDate: string, endDate: string, startRow: number, rowLimit: number) {
+  async query(
+    siteUrl: string, startDate: string, endDate: string, startRow: number, rowLimit: number) {
     const authClient = await this.auth.getClient();
-    google.options({auth: authClient});
+    google.options({ auth: authClient });
 
     const webmasters = google.webmasters('v3');
     const query = {
-      siteUrl: siteUrl,
+      siteUrl,
       requestBody: {
-        startDate: startDate,
-        endDate: endDate,
+        startDate,
+        endDate,
         searchType: 'web',
         dimensions: 'query',
-        startRow: startRow,
-        rowLimit: rowLimit,
-        aggregationType: 'byProperty'
-      }
+        startRow,
+        rowLimit,
+        aggregationType: 'byProperty',
+      },
     };
 
     // @ts-ignore
@@ -43,8 +44,8 @@ export default class GoogleSearchConsole {
     const rowLimit = 25000;
 
     let searchResults: {}[] = [];
-    for (let i in [...Array(maxRepeatCount).keys()]) {
-      const currentStartRow = startRow + (rowLimit * Number(i));
+    for (const i of [...Array(maxRepeatCount).keys()]) {
+      const currentStartRow = startRow + (rowLimit * i);
 
       console.info(`[${startDate}] - [${endDate}] ${currentStartRow} ~ ...`);
       const results = await this.query(siteUrl, startDate, endDate, currentStartRow, rowLimit);
@@ -74,7 +75,7 @@ export default class GoogleSearchConsole {
         impressions: row.impressions,
         ctr: row.ctr,
         position: row.position,
-      }
+      };
     });
   }
 }

@@ -1,7 +1,7 @@
-import crossSpawn from 'cross-spawn'
-import async from 'async'
-import program from 'commander'
-import targetUrls from '../target-urls.json'
+import crossSpawn from 'cross-spawn';
+import async from 'async';
+import program from 'commander';
+import targetUrls from '../target-urls.json';
 
 const cliOptions = program.version('0.0.1')
   .option('-c, --concurrency [number]', 'concurrency', '1')
@@ -16,11 +16,11 @@ async function main() {
     const served = crossSpawn(c, args);
 
     served.stdout.on('data', (data) => {
-      console.info(`[pid: ${served.pid}] ${data}`.trim())
+      console.info(`[pid: ${served.pid}] ${data}`.trim());
     });
 
     served.stderr.on('data', (data) => {
-      console.info(`[pid: ${served.pid}] ${data}`.trim())
+      console.info(`[pid: ${served.pid}] ${data}`.trim());
     });
 
     served.on('close', (code) => {
@@ -29,7 +29,7 @@ async function main() {
     });
   };
 
-  var q = async.queue((url: string, callback: Function) => {
+  const q = async.queue((url: string, callback: Function) => {
     run(cliOptions.deviceType, url, callback);
   }, cliOptions.concurrency);
 
@@ -39,7 +39,7 @@ async function main() {
   });
 }
 
-main().catch(e => {
+main().catch((e) => {
   console.error(e);
   throw e;
 });

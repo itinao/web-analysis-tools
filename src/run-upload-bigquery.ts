@@ -1,7 +1,7 @@
-import path from 'path'
-import program from 'commander'
-import {GoogleBigQuery} from './classes/GoogleBigQuery'
-import {readJSON, readJSONL} from './utils/file-reader'
+import path from 'path';
+import program from 'commander';
+import { GoogleBigQuery } from './classes/GoogleBigQuery';
+import { readJSON, readJSONL } from './utils/file-reader';
 
 const cliOptions = program.version('0.0.1')
   .option('-p, --project-id [id]', 'project id')
@@ -30,7 +30,7 @@ async function main() {
   console.info(`Inserted ${rows.length} rows`);
 }
 
-main().catch(e => {
+main().catch((e) => {
   console.error(e);
   throw e;
 });

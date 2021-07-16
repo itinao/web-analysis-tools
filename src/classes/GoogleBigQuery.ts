@@ -1,4 +1,4 @@
-const {BigQuery} = require('@google-cloud/bigquery');
+const { BigQuery } = require('@google-cloud/bigquery');
 
 export class GoogleBigQuery {
   bigQueryClient;
@@ -6,8 +6,8 @@ export class GoogleBigQuery {
 
   constructor(projectId: string) {
     this.bigQueryClient = new BigQuery({
-      projectId: projectId,
-      keyFilename: this.CREDENTIALS_PATH
+      projectId,
+      keyFilename: this.CREDENTIALS_PATH,
     });
   }
 
