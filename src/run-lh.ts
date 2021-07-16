@@ -25,7 +25,7 @@ async function main() {
   const parser = new LighthouseResultParser(cliOptions.url, runnerResult);
   const results = parser.parse();
 
-  appendFile(cliOptions.outputPath, `lh-${cliOptions.deviceType}.jsonl`, JSON.stringify(results));
+  appendFile(cliOptions.outputPath, `lh_${cliOptions.deviceType}.jsonl`, JSON.stringify(results));
 }
 
 main().catch((e) => {
